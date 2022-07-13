@@ -72,20 +72,20 @@ body {
 }
 
 // Оболочка wrapper ===================================================================================
-.wrapper {
-	display: flex;
-	flex-direction: column;   
-	overflow: hidden;
+// .wrapper {
+// 	display: flex;
+// 	flex-direction: column;   
+// 	overflow: hidden;
 
-	// Прижимаем footer
-	> main {
-		flex: 1 1 auto;
-	}
-	// Фикс для слайдеров
-	> * {
-		min-width: 0;
-	}
-}
+// 	// Прижимаем footer
+// 	> main {
+// 		flex: 1 1 auto;
+// 	}
+// 	// Фикс для слайдеров
+// 	> * {
+// 		min-width: 0;
+// 	}
+// }
 
 .page {
    perspective: 1500px;
