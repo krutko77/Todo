@@ -28,7 +28,6 @@ if (!pugPages.length) {
 	})];
 }
 
-
 const paths = {
 	src: path.resolve(srcFolder),
 	build: path.resolve(builFolder)
@@ -54,6 +53,16 @@ const config = {
 		compress: true,
 		port: 8080,
 		hot: true,
+		host: 'localhost', // localhost
+
+		// Расскоментировать на слабом ПК
+		// (в режиме разработчика, папка с результаттом будет создаваться на диске)
+		/*
+		devMiddleware: {
+			writeToDisk: true,
+		},
+		*/
+
 		watchFiles: [
 			`${paths.src}/**/*.html`,
 			`${paths.src}/**/*.pug`,
