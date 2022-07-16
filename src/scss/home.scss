@@ -12,15 +12,63 @@
    margin-bottom: 50px;
 }
 
+.page__card {
+   background-color: $cardBgColor;
+   border-radius: 5px
+}
+
 .list__empty-item {
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    padding: 30px 0 30px;
-   background-color: $emptyBgColor;
+   border-bottom: 2px solid $lineColor;
  }
 
  .list__empty-title {
-   @include font(28px, 400, 120%);
+   @include font(28px, 300, 120%);
  }
+
+ .list__group-item {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px 20px;
+ }
+
+ .list__task-title {
+   @include font(16px, 400, 120%);
+ }
+
+ .list__block-btn-action {
+   display: flex;
+   column-gap: 5px;
+ }
+
+ .list__btn-action {
+   background-color: $btnActionColor;
+   padding: 8px 10px;
+   cursor: pointer;
+   border: 0;
+   border-radius: 4px;
+   transition: opacity 0.2s ease-in;
+   opacity: 0.5;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.list__btn-action:hover {
+   opacity: 1;
+}
+
+.list__btn-action:active {
+   transform: translate(1px, 2px);
+}
+
+.list__btn-action img {
+ pointer-events: none;
+}
+
