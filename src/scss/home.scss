@@ -13,8 +13,12 @@
 }
 
 .page__card {
-   background-color: $cardBgColor;
-   border-radius: 5px
+   background-color: $bgCardColor;
+   border-radius: 4px;
+}
+
+.page__card--top {
+   margin-bottom: 20px;
 }
 
 .list__empty-item {
@@ -38,7 +42,7 @@
  }
 
  .list__task-title {
-   @include font(16px, 400, 120%);
+   @include font(16px, 500, 120%);
  }
 
  .list__block-btn-action {
@@ -72,3 +76,75 @@
  pointer-events: none;
 }
 
+.page__card-header {
+   @include font(20px, 500, 120%);
+   padding: 10px 20px;
+   background-color: $bgCardHeader;
+   border-radius: 4px 4px 0 0;
+   border-bottom: 2px solid $lineColor;
+}
+
+.page__form {
+   background-color: $bgCardBody;
+   padding: 20px;
+   border-radius: 0 0 4px 4px;
+}
+
+.form__input {
+   width: 100%;
+   padding: 8px 15px;
+   margin-bottom: 5px;
+}
+
+.form__group {
+   margin-bottom: 15px;
+}
+
+input {
+   outline: none;
+   border: 2px solid $lineColor;    
+   border-radius: 5px;
+   @include font(16px, 500, 120%);
+   transition: border-color 0.3s ease;
+}
+
+input::placeholder {
+   color: $textLightColor;
+   @include font(14px, 500, 120%);
+}
+
+input:focus {
+   box-shadow: 0 0 7px 0 $textLightColor;   
+}
+
+input:hover {
+   border-color: $btnLabelColor;   
+}
+
+input:focus::placeholder {
+   color: transparent;
+}
+
+.form__text {
+   color: $textLightColor;   
+}
+
+.form__btn {
+   display: inline-block;
+   padding: 10px 24px 7px;
+   border-radius: 4px;
+   background-color: $btnPrimaryColor;
+   color: $btnLabelColor;
+   @include font(14px, 500, 120%);
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   transition: opacity 0.3s ease;
+  
+   &:hover {
+      opacity: 0.7;
+      }
+
+   &:active {
+      transform: translate(1px, 2px);
+   }
+}
