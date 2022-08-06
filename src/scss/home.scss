@@ -1,15 +1,16 @@
 .page {
    background-image: url("./../img/bg-main.jpg");
-   padding-top: 30px;
+   padding-top: 80px;
 }
 
 .page__title {
    @include font(40px, 400, 140%);
+   color: $btnPrimaryColor;
 }
 
 .page__subtitle {
    @include font(20px, 700, 120%);
-   margin-bottom: 50px;
+   margin-bottom: 20px;
 }
 
 .page__card {
@@ -21,36 +22,41 @@
    margin-bottom: 20px;
 }
 
+.none {
+   display: none !important;
+}
+
 .list__empty-item {
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    padding: 30px 0 30px;
-   border-bottom: 2px solid $lineColor;
- }
+}
 
- .list__empty-title {
+.list__empty-title {
    @include font(28px, 300, 120%);
- }
+}
 
- .list__group-item {
+.list__group-item {
    display: flex;
    justify-content: space-between;
    align-items: center;
    padding: 10px 20px;
- }
+   border-top: 2px solid $lineColor;
+   border-radius: 4px 4px 0 0;
+}
 
- .list__task-title {
+.list__task-title {
    @include font(16px, 500, 120%);
- }
+}
 
- .list__block-btn-action {
+.list__block-btn-action {
    display: flex;
    column-gap: 5px;
- }
+}
 
- .list__btn-action {
+.list__btn-action {
    background-color: $btnActionColor;
    padding: 8px 10px;
    cursor: pointer;
@@ -73,7 +79,7 @@
 }
 
 .list__btn-action img {
- pointer-events: none;
+   pointer-events: none;
 }
 
 .page__card-header {
@@ -102,7 +108,7 @@
 
 input {
    outline: none;
-   border: 2px solid $lineColor;    
+   border: 2px solid $lineColor;
    border-radius: 5px;
    @include font(16px, 500, 120%);
    transition: border-color 0.3s ease;
@@ -114,19 +120,19 @@ input::placeholder {
 }
 
 input:focus {
-   box-shadow: 0 0 7px 0 $textLightColor;   
+   box-shadow: 0 0 5px 0 $textLightColor;
 }
 
 input:hover {
-   border-color: $btnLabelColor;   
+   border-color: $btnLabelColor;
 }
 
-input:focus::placeholder {
-   color: transparent;
-}
+// input:focus::placeholder {
+//    color: transparent;
+// }
 
 .form__text {
-   color: $textLightColor;   
+   color: $textLightColor;
 }
 
 .form__btn {
@@ -139,10 +145,10 @@ input:focus::placeholder {
    letter-spacing: 1px;
    text-transform: uppercase;
    transition: opacity 0.3s ease;
-  
+
    &:hover {
       opacity: 0.7;
-      }
+   }
 
    &:active {
       transform: translate(1px, 2px);
