@@ -12,22 +12,39 @@ const taskInput = document.querySelector('#taskInput');
 const tasksList = document.querySelector('#tasksList');
 const emptyList = document.querySelector('#emptyList');
 
-//Добавление задачи
+let tasks = [];
+
+// Добавление задачи
 form.addEventListener('submit', addTask);
 
-//Удаление задачи
+// Удаление задачи
 tasksList.addEventListener('click', deleteTask);
 
-//Отмечаем задачу завершенной
+// Отмечаем задачу завершенной
 tasksList.addEventListener('click', doneTask);
 
 function addTask(event) {
    //Отключаем перезагрузку страницы при отправке формы
    event.preventDefault();
 
+   //Достаем текст задачи из поля ввода
    const taskText = taskInput.value;
-   const taskHTML = `<li class="list__group-item">
-   <span class="list__task-title">${taskText}</span>
+
+   //Описываем задачу в виде объекта
+   const newTask = {
+      id: Date.now(),
+      text: taskText,
+      done: false
+   };
+
+   //Добавляем задачу в массив с задачами
+   tasks.push(newTask);
+   
+   //Определяем класс css <li></li> в зависимости от done
+   const cssClass = newTask.done ? 'list__task-title list__task-title--done' : 'list__task-title';
+  
+   const taskHTML = `<li id="${newTask.id}" class="list__group-item">
+   <span class="${cssClass}">${newTask.text}</span>
    <div class="list__block-btn-action">
       <button class="list__btn-action" type="button" data-action="done">
          <img src="img/tick.svg" alt="done" width="18" height="18">
@@ -51,13 +68,28 @@ function addTask(event) {
 
 function deleteTask(event) {
 
-   //Проверка, если клик не по кнопке delete
+   // Проверяем, если клик НЕ по кнопке delete
    if (event.target.dataset.action !== 'delete') return;
 
    const parentNode = event.target.closest('.list__group-item');
+
+   //Определяем ID задачи
+   const id = parentNode.id;
+
+   //Находим индекс задачи в массиве
+   const index = tasks.findIndex(function(task) {      
+         return tasks.id == id;
+      });
+
+   // Удаляем задачу из массива данных
+   tasks.splice(index, 1);
+
+
+
+   // Удаляем задачу из разметки
    parentNode.remove();
 
-   //Показываем #emptyList
+   // Показываем #emptyList
    if (tasksList.children.length == 1) {
       emptyList.classList.remove('none');
    }
@@ -65,7 +97,7 @@ function deleteTask(event) {
 
 function doneTask(event) {
 
-   //Проверка, если клик не по кнопке done
+   // Проверка, если клик не по кнопке done
    if (event.target.dataset.action !== 'done') return;
 
    const parentNode = event.target.closest('.list__group-item');
