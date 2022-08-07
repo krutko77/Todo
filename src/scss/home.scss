@@ -51,6 +51,11 @@
    @include font(16px, 500, 120%);
 }
 
+.list__task-title--done {
+   text-decoration: line-through;
+   color: $textVeryLightColor;
+}
+
 .list__block-btn-action {
    display: flex;
    column-gap: 5px;

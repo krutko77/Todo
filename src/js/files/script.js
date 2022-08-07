@@ -18,7 +18,11 @@ form.addEventListener('submit', addTask);
 //Удаление задачи
 tasksList.addEventListener('click', deleteTask);
 
-function addTask(e) {
+//Отмечаем задачу завершенной
+tasksList.addEventListener('click', doneTask);
+
+function addTask(event) {
+   //Отключаем перезагрузку страницы при отправке формы
    event.preventDefault();
 
    const taskText = taskInput.value;
@@ -39,19 +43,32 @@ function addTask(e) {
    taskInput.value = "";
    taskInput.focus();
 
+   //Прячем #emptyList
    if (tasksList.children.length > 1) {
       emptyList.classList.add('none');
    }
 }
 
-function deleteTask(e) {
+function deleteTask(event) {
 
-   if (event.target.dataset.action === 'delete') {
-      const parenNode = event.target.closest('.list__group-item');
-      parenNode.remove();     
-   }
+   //Проверка, если клик не по кнопке delete
+   if (event.target.dataset.action !== 'delete') return;
 
+   const parentNode = event.target.closest('.list__group-item');
+   parentNode.remove();
+
+   //Показываем #emptyList
    if (tasksList.children.length == 1) {
       emptyList.classList.remove('none');
    }
+}
+
+function doneTask(event) {
+
+   //Проверка, если клик не по кнопке done
+   if (event.target.dataset.action !== 'done') return;
+
+   const parentNode = event.target.closest('.list__group-item');
+   const taskTitle = parentNode.querySelector('.list__task-title');
+   taskTitle.classList.toggle('list__task-title--done');
 }
