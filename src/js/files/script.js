@@ -77,14 +77,10 @@ function deleteTask(event) {
    const id = parentNode.id;
 
    //Находим индекс задачи в массиве
-   const index = tasks.findIndex(function(task) {      
-         return tasks.id == id;
-      });
+   const index = tasks.findIndex((task) => task.id == id);
 
    // Удаляем задачу из массива данных
    tasks.splice(index, 1);
-
-
 
    // Удаляем задачу из разметки
    parentNode.remove();
@@ -97,10 +93,18 @@ function deleteTask(event) {
 
 function doneTask(event) {
 
-   // Проверка, если клик не по кнопке done
+   // Проверка, если клик НЕ по кнопке done
    if (event.target.dataset.action !== 'done') return;
 
    const parentNode = event.target.closest('.list__group-item');
+
+   //Определяем ID задачи
+   const id = parentNode.id;
+
+   //Находим задачу в массиве
+   const task = tasks.find((task) => task.id == id);
+   task.done = !task.done; 
+
    const taskTitle = parentNode.querySelector('.list__task-title');
    taskTitle.classList.toggle('list__task-title--done');
 }

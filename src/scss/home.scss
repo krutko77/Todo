@@ -31,11 +31,12 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   padding: 30px 0 30px;
+   position: relative;
+   padding: 20px 0 20px;   
 }
 
 .list__empty-title {
-   @include font(28px, 300, 120%);
+   @include font(28px, 300, 120%);   
 }
 
 .list__group-item {
