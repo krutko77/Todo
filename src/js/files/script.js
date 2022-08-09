@@ -13,6 +13,12 @@ const tasksList = document.querySelector('#tasksList');
 // const emptyList = document.querySelector('#emptyList');
 
 let tasks = [];
+
+if (localStorage.getItem('tasks')) {
+   tasks = JSON.parse(localStorage.getItem('tasks'));
+   tasks.forEach((task) => renderTask(task));
+}
+
 checkEmptyList();
 
 // Добавление задачи
@@ -42,27 +48,16 @@ function addTask(event) {
    //Добавляем задачу в массив с задачами
    tasks.push(newTask);
 
-   //Определяем класс css <li></li> в зависимости от done
-   const cssClass = newTask.done ? 'list__task-title list__task-title--done' : 'list__task-title';
+   // Сохраняем список задач в хранилище браузера LocalStorage
+   saveToLocalStorage();
 
-   const taskHTML = `<li id="${newTask.id}" class="list__group-item">
-   <span class="${cssClass}">${newTask.text}</span>
-   <div class="list__block-btn-action">
-      <button class="list__btn-action" type="button" data-action="done">
-         <img src="img/tick.svg" alt="done" width="18" height="18">
-      </button>
-      <button class="list__btn-action" type="button" data-action="delete">
-         <img src="img/cross.svg" alt="Done" width="18" height="18">
-      </button>
-   </div>
-</li>`;
-
-   tasksList.insertAdjacentHTML('beforeend', taskHTML);
+   // Рендерим задачу на странице
+   renderTask(newTask);
 
    taskInput.value = "";
    taskInput.focus();
 
-   checkEmptyList()
+   checkEmptyList();
 };
 
 
@@ -81,6 +76,9 @@ function deleteTask(event) {
 
    // Удаляем задачу из массива данных
    tasks.splice(index, 1);
+
+   // Сохраняем список задач в хранилище браузера LocalStorage
+   saveToLocalStorage();
 
    // Удаляем задачу из разметки
    parentNode.remove();
@@ -103,6 +101,9 @@ function doneTask(event) {
    const task = tasks.find((task) => task.id == id);
    task.done = !task.done;
 
+   // Сохраняем список задач в хранилище браузера LocalStorage
+   saveToLocalStorage();
+
    const taskTitle = parentNode.querySelector('.list__task-title');
    taskTitle.classList.toggle('list__task-title--done');
 };
@@ -121,4 +122,30 @@ function checkEmptyList() {
       const emptyListEl = document.querySelector('#emptyList');
       emptyListEl ? emptyListEl.remove() : null;
    };
-}
+};
+
+
+function saveToLocalStorage() {
+   localStorage.setItem('tasks', JSON.stringify(tasks));
+};
+
+
+function renderTask(task) {
+
+   //Определяем класс css <li></li> в зависимости от done
+   const cssClass = task.done ? 'list__task-title list__task-title--done' : 'list__task-title';
+
+   const taskHTML = `<li id="${task.id}" class="list__group-item">
+      <span class="${cssClass}">${task.text}</span>
+      <div class="list__block-btn-action">
+         <button class="list__btn-action" type="button" data-action="done">
+            <img src="img/tick.svg" alt="done" width="18" height="18">
+         </button>
+         <button class="list__btn-action" type="button" data-action="delete">
+            <img src="img/cross.svg" alt="Done" width="18" height="18">
+         </button>
+      </div>
+      </li>`;
+
+   tasksList.insertAdjacentHTML('beforeend', taskHTML);
+};
