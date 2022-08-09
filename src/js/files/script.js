@@ -10,9 +10,10 @@ import {
 const form = document.querySelector('#form');
 const taskInput = document.querySelector('#taskInput');
 const tasksList = document.querySelector('#tasksList');
-const emptyList = document.querySelector('#emptyList');
+// const emptyList = document.querySelector('#emptyList');
 
 let tasks = [];
+checkEmptyList();
 
 // Добавление задачи
 form.addEventListener('submit', addTask);
@@ -22,6 +23,7 @@ tasksList.addEventListener('click', deleteTask);
 
 // Отмечаем задачу завершенной
 tasksList.addEventListener('click', doneTask);
+
 
 function addTask(event) {
    //Отключаем перезагрузку страницы при отправке формы
@@ -39,10 +41,10 @@ function addTask(event) {
 
    //Добавляем задачу в массив с задачами
    tasks.push(newTask);
-   
+
    //Определяем класс css <li></li> в зависимости от done
    const cssClass = newTask.done ? 'list__task-title list__task-title--done' : 'list__task-title';
-  
+
    const taskHTML = `<li id="${newTask.id}" class="list__group-item">
    <span class="${cssClass}">${newTask.text}</span>
    <div class="list__block-btn-action">
@@ -60,11 +62,9 @@ function addTask(event) {
    taskInput.value = "";
    taskInput.focus();
 
-   //Прячем #emptyList
-   if (tasksList.children.length > 1) {
-      emptyList.classList.add('none');
-   }
-}
+   checkEmptyList()
+};
+
 
 function deleteTask(event) {
 
@@ -85,11 +85,9 @@ function deleteTask(event) {
    // Удаляем задачу из разметки
    parentNode.remove();
 
-   // Показываем #emptyList
-   if (tasksList.children.length == 1) {
-      emptyList.classList.remove('none');
-   }
-}
+   checkEmptyList()
+};
+
 
 function doneTask(event) {
 
@@ -103,8 +101,24 @@ function doneTask(event) {
 
    //Находим задачу в массиве
    const task = tasks.find((task) => task.id == id);
-   task.done = !task.done; 
+   task.done = !task.done;
 
    const taskTitle = parentNode.querySelector('.list__task-title');
    taskTitle.classList.toggle('list__task-title--done');
+};
+
+
+function checkEmptyList() {
+   if (tasks.length == 0) {
+      const emptyListHTML = `<li class="list__empty-item" id="emptyList">
+     <img class="list__empty-img" src="img/leaf.svg" alt="empty" width="48">
+     <div class="list__empty-title">Список дел пуст</div>
+  </li>`
+      tasksList.insertAdjacentHTML('afterbegin', emptyListHTML);
+   };
+
+   if (tasks.length > 0) {
+      const emptyListEl = document.querySelector('#emptyList');
+      emptyListEl ? emptyListEl.remove() : null;
+   };
 }
